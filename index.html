@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolvBTC on Stellar Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  /* Black bg + Solv purple accents */
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --card: #111111;
+  --card-hover: #181818;
+  --border: rgba(255,255,255,0.08);
+  --border-hi: rgba(255,255,255,0.16);
+  --purple-1: #8b6fc0;     /* mid accent */
+  --purple-2: #c4b5fd;     /* light accent */
+  --purple-3: #6b4eaf;     /* deeper */
+  --purple-4: #e0d6ff;     /* very light */
+  --purple-dim: rgba(255,255,255,0.04);
+  --purple-glow: rgba(167,139,250,0.30);
+  --text: #ffffff;
+  --text2: #e0e0e0;
+  --muted: rgba(255,255,255,0.50);
+  --muted2: rgba(255,255,255,0.20);
+  --white-dim: rgba(255,255,255,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;
+}
+
+/* ââ Top Bar ââ */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 40px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+@media(max-width:768px){.topbar{padding:16px 20px;flex-wrap:wrap;gap:12px;}}
+.topbar-left{display:flex;align-items:center;gap:16px;}
+.solv-logo svg{height:26px;}
+.divider{width:1px;height:20px;background:var(--muted2);}
+.stellar-mark{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);font-weight:500;}
+.stellar-mark svg{height:22px;width:22px;}
+.topbar-right{display:flex;align-items:center;gap:14px;}
+.tag{
+  font-size:11px;color:var(--muted);
+  background:var(--purple-dim);
+  padding:5px 14px;border-radius:20px;
+  border:1px solid var(--border);
+  letter-spacing:0.3px;
+}
+
+/* ââ Container ââ */
+.container{max-width:1160px;margin:0 auto;padding:44px 40px 60px;}
+@media(max-width:768px){.container{padding:28px 16px;}}
+
+/* ââ Page Title ââ */
+.page-title{
+  font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:3px;
+  color:var(--purple-2);margin-bottom:36px;
+}
+
+/* ââ Hero KPIs ââ */
+.hero-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border-radius:16px;overflow:hidden;
+  margin-bottom:36px;
+  box-shadow:0 0 60px rgba(124,58,237,0.06);
+}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr;}}
+.hero-cell{
+  background:var(--card);padding:36px 32px;text-align:center;
+  transition:background 0.3s;
+}
+.hero-cell:hover{background:var(--card-hover);}
+.hero-label{
+  font-size:11px;text-transform:uppercase;letter-spacing:1.8px;
+  color:var(--muted);margin-bottom:16px;
+}
+.hero-num{
+  font-size:50px;font-weight:800;letter-spacing:-2px;
+  line-height:1;margin-bottom:10px;
+  color:#ffffff;
+}
+.hero-detail{font-size:13px;color:var(--muted);}
+.hero-detail b{color:var(--text2);font-weight:600;}
+
+/* ââ Stats Strip ââ */
+.stats-strip{
+  display:flex;gap:0;
+  border-radius:12px;overflow:hidden;
+  border:1px solid var(--border);
+  margin-bottom:44px;
+}
+@media(max-width:820px){.stats-strip{flex-direction:column;}}
+.stat-item{
+  flex:1;padding:18px 20px;
+  background:var(--card);
+  border-right:1px solid var(--border);
+  text-align:center;
+}
+.stat-item:last-child{border-right:none;}
+.stat-label{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:6px;}
+.stat-val{font-size:18px;font-weight:700;color:#ffffff;}
+
+/* ââ Section Headers ââ */
+.sec-head{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.sec-head h2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--purple-2);white-space:nowrap;}
+.sec-head .line{flex:1;height:1px;background:var(--border);}
+
+/* ââ Trajectory ââ */
+.traj{margin-bottom:44px;}
+
+.spark-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin-bottom:28px;
+}
+@media(max-width:820px){.spark-row{grid-template-columns:1fr;}}
+.spark-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:18px 18px 16px;
+}
+.spark-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.spark-title{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
+.spark-val{font-size:20px;font-weight:700;color:#ffffff;}
+.spark-area{height:44px;position:relative;display:flex;align-items:center;}
+.spark-dot{
+  width:9px;height:9px;border-radius:50%;
+  position:absolute;left:0;
+  background:var(--purple-1);
+  box-shadow:0 0 12px var(--purple-glow);
+  animation:pulse 2.5s infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 8px var(--purple-glow);}50%{box-shadow:0 0 22px var(--purple-glow);}}
+.spark-track{position:absolute;left:14px;right:0;top:50%;height:1px;border-top:1px dashed var(--muted2);}
+.spark-ghosts{
+  position:absolute;left:20px;right:0;top:0;bottom:0;
+  display:flex;align-items:flex-end;gap:3px;
+}
+.spark-ghost{flex:1;border-radius:2px 2px 0 0;background:rgba(124,58,237,0.06);}
+.spark-badge{
+  position:absolute;right:0;top:0;
+  font-size:9px;color:var(--muted);
+  background:var(--purple-dim);
+  padding:2px 7px;border-radius:3px;
+  border:1px dashed var(--muted2);
+}
+
+/* Timeline */
+.tl-wrap{
+  display:flex;gap:0;
+  border-radius:12px;overflow:hidden;
+  border:1px solid var(--border);
+}
+.tl-cell{
+  flex:1;padding:16px 12px;
+  background:var(--card);
+  border-right:1px solid var(--border);
+  text-align:center;min-width:120px;
+}
+.tl-cell:last-child{border-right:none;}
+.tl-cell.now{background:var(--purple-dim);border-color:var(--border-hi);}
+.tl-cell.later{opacity:0.3;}
+.tl-date{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
+.tl-cell.now .tl-date{color:var(--purple-2);font-weight:600;}
+.tl-nums{font-size:13px;line-height:1.8;}
+.tl-nums .n{font-weight:700;color:#ffffff;}
+.tl-empty{color:var(--muted2);font-size:16px;line-height:1.8;}
+.tl-legend{
+  display:flex;gap:18px;margin-top:10px;font-size:10px;
+  text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);
+}
+.tl-legend span::before{content:'â ';color:var(--purple-2);}
+
+/* ââ Charts ââ */
+.charts-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;margin-bottom:40px;
+}
+@media(max-width:820px){.charts-row{grid-template-columns:1fr;}}
+.chart-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+}
+.chart-card h3{
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1.4px;color:var(--purple-2);margin-bottom:16px;
+}
+.chart-wrap{position:relative;height:230px;}
+
+/* ââ Table ââ */
+.data-table{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;margin-bottom:40px;
+}
+.data-table h3{
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1.4px;color:var(--purple-2);
+  padding:20px 24px 0;
+}
+table{width:100%;border-collapse:collapse;margin-top:12px;}
+th{
+  text-align:left;font-size:10px;text-transform:uppercase;
+  letter-spacing:1px;color:var(--muted);
+  padding:10px 24px;border-bottom:1px solid var(--border);
+}
+td{padding:13px 24px;border-bottom:1px solid var(--border);font-size:14px;color:var(--text2);}
+tr:last-child td{border-bottom:none;}
+.pn{font-weight:600;color:var(--text);}
+.hl{color:#ffffff;font-weight:600;}
+.hl2{color:var(--purple-2);font-weight:700;}
+
+/* ââ Bottom Grid ââ */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:820px){.bottom-grid{grid-template-columns:1fr;}}
+.panel{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+}
+.panel h3{
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1.4px;color:var(--purple-2);margin-bottom:16px;
+}
+.row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:13px 0;border-bottom:1px solid var(--border);
+}
+.row:last-child{border-bottom:none;}
+.row-label{font-size:14px;color:var(--text2);}
+.row-val{font-size:15px;font-weight:700;color:#ffffff;}
+.bar-bg{width:100%;height:5px;background:var(--white-dim);border-radius:3px;margin-top:5px;overflow:hidden;}
+.bar-fg{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--purple-1),var(--purple-2));}
+
+.gauge-center{text-align:center;padding:18px 0;}
+.gauge-num{font-size:34px;font-weight:800;margin-top:-22px;color:#ffffff;}
+.gauge-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;}
+
+.footer{
+  text-align:center;padding:44px 0 20px;
+  font-size:11px;color:var(--muted2);
+  border-top:1px solid var(--border);
+  margin-top:48px;
+  letter-spacing:0.3px;
+}
+</style>
+</head>
+<body>
+
+<!-- âââ Top Bar âââ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="solv-logo">
+      <svg viewBox="0 0 129 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.9605 4.12701L7.34627 14.7655C6.51348 15.6013 6.51348 16.9549 7.34627 17.7907C8.17905 18.6266 9.52968 18.6266 10.3655 17.7907L20.9797 7.1523C21.8125 6.31648 21.8125 4.96283 20.9797 4.12701C20.1469 3.2912 18.7963 3.2912 17.9605 4.12701Z" fill="white"/>
+        <path d="M26.7999 12.9878L16.1857 23.6262C15.3529 24.462 15.3529 25.8157 16.1857 26.6515C17.0185 27.4873 18.3691 27.4873 19.2049 26.6515L29.8192 16.013C30.652 15.1772 30.652 13.8236 29.8192 12.9878C28.9864 12.1519 27.6358 12.1519 26.7999 12.9878Z" fill="white"/>
+        <path d="M19.1959 11.7493L8.58165 22.3878C7.74887 23.2236 7.74887 24.5772 8.58165 25.4131C9.41444 26.2489 10.7651 26.2489 11.6009 25.4131L22.2151 14.7746C23.0479 13.9388 23.0479 12.5851 22.2151 11.7493C21.3823 10.9135 20.0317 10.9135 19.1959 11.7493Z" fill="white"/>
+        <path d="M28.0354 20.6102L17.4212 31.2486C16.5884 32.0845 16.5884 33.4381 17.4212 34.2739C18.254 35.1097 19.6046 35.1097 20.4404 34.2739L31.0546 23.6355C31.8874 22.7997 31.8874 21.446 31.0546 20.6102C30.2218 19.7744 28.8712 19.7744 28.0354 20.6102Z" fill="white"/>
+        <path d="M45.5365 27.597C46.2816 30.0593 47.905 31.5525 51.1063 31.5525C53.7382 31.5525 55.622 30.3652 55.622 28.2997C55.622 26.2341 53.4293 25.5739 50.1825 24.7834L48.5592 24.3442C44.743 23.4205 41.893 21.7062 41.893 17.7084C41.893 13.7105 45.5759 10.9393 50.7095 10.9393C55.8431 10.9393 59.1293 13.1381 59.6562 17.6629H55.4464C54.7892 15.5974 53.2536 14.4556 50.5793 14.4556C47.7717 14.4556 46.4118 15.5974 46.4118 17.3116C46.4118 19.2015 47.7717 19.7285 50.5793 20.5644L53.0356 21.2671C57.6391 22.5845 60.053 23.9929 60.053 27.8605C60.053 32.3006 56.2369 35.1566 50.973 35.1566C45.3578 35.1566 42.0687 32.7397 41.148 27.597H45.5335H45.5365Z" fill="white"/>
+        <path d="M85.7085 23.1567C85.7085 30.1893 81.3654 35.1988 73.9996 35.1988C66.6339 35.1988 62.421 30.1893 62.421 23.1567C62.421 16.1241 66.8943 10.939 74.0874 10.939C81.2806 10.939 85.7085 15.9939 85.7085 23.1567ZM67.1124 23.1143C67.1124 28.257 69.5686 31.5098 73.9542 31.5098C78.3397 31.5098 80.8384 28.257 80.8384 23.1143C80.8384 17.9716 78.2943 14.631 73.9542 14.631C69.6141 14.631 67.1124 18.1897 67.1124 23.1143Z" fill="white"/>
+        <path d="M89.7432 3.20221H94.1742V34.6278H89.7432V3.20221Z" fill="white"/>
+        <path d="M105.712 34.6303L97.117 11.5548H102.16L105.755 22.0583L108.299 29.839H108.387C109.441 26.6316 110.186 24.9598 111.237 21.5767L114.614 11.5548H119.393L110.534 34.6303H105.709H105.712Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="divider"></div>
+    <div class="stellar-mark">
+      <!-- Full Stellar logo + wordmark (from official PDF) -->
+      <svg viewBox="100 120 1540 400" xmlns="http://www.w3.org/2000/svg" style="height:22px;width:auto;">
+        <!-- Icon -->
+        <path fill="white" d="M 343.046875 124.582031 C 367.917969 124.582031 392.050781 129.460938 414.773438 139.085938 C 426.910156 144.222656 438.503906 150.679688 449.269531 158.296875 L 446.96875 159.472656 L 417.421875 174.542969 C 394.859375 162 369.164062 155.375 343.050781 155.375 C 342.65625 155.375 342.257812 155.375 341.859375 155.378906 C 321.785156 155.527344 302.234375 159.53125 283.753906 167.28125 C 265.28125 175.027344 248.714844 186.164062 234.511719 200.382812 C 205.519531 229.410156 189.554688 268.003906 189.554688 309.046875 C 189.554688 315.730469 189.992188 322.484375 190.855469 329.121094 L 191.132812 331.246094 L 193.039062 330.273438 L 448.339844 200.035156 L 501.199219 173.074219 L 561.070312 142.53125 L 561.070312 177.089844 L 499.394531 208.550781 L 469.148438 223.980469 L 200.03125 361.265625 L 198.824219 361.945312 L 185.0625 368.96875 L 171.097656 376.09375 L 171.066406 376.039062 L 169.8125 376.679688 L 125.023438 399.527344 L 125.023438 364.96875 L 140.164062 357.242188 C 152.878906 350.761719 160.398438 337.355469 159.324219 323.097656 C 158.976562 318.445312 158.800781 313.71875 158.800781 309.046875 C 158.800781 284.148438 163.671875 259.988281 173.28125 237.238281 C 182.566406 215.273438 195.847656 195.546875 212.761719 178.609375 C 229.675781 161.675781 249.382812 148.378906 271.328125 139.085938 C 294.050781 129.460938 318.179688 124.582031 343.046875 124.582031"/>
+        <path fill="white" d="M 561.074219 223.261719 L 561.074219 257.820312 L 545.925781 265.546875 C 533.203125 272.035156 525.683594 285.445312 526.761719 299.707031 C 527.121094 304.425781 527.300781 309.195312 527.300781 313.878906 C 527.300781 338.777344 522.429688 362.9375 512.816406 385.683594 C 503.539062 407.648438 490.253906 427.375 473.335938 444.316406 C 456.414062 461.253906 436.710938 474.554688 414.773438 483.84375 C 392.042969 493.464844 367.914062 498.34375 343.050781 498.34375 C 318.1875 498.34375 294.058594 493.464844 271.328125 483.84375 C 259.144531 478.683594 247.507812 472.195312 236.707031 464.535156 L 267.3125 448.925781 L 268.535156 448.300781 C 291.128906 460.898438 316.878906 467.554688 343.058594 467.554688 C 343.417969 467.554688 343.78125 467.550781 344.140625 467.550781 C 364.234375 467.410156 383.800781 463.410156 402.296875 455.660156 C 420.789062 447.914062 437.375 436.769531 451.585938 422.542969 C 480.578125 393.515625 496.546875 354.925781 496.546875 313.878906 C 496.546875 307.179688 496.105469 300.382812 495.230469 293.671875 L 494.957031 291.550781 L 493.050781 292.519531 L 237.492188 422.886719 L 184.632812 449.847656 L 125.027344 480.257812 L 125.027344 445.703125 L 186.4375 414.371094 L 216.675781 398.945312 Z"/>
+        <!-- "Stellar" wordmark -->
+        <path fill="white" d="M 869.382812 251.332031 L 835.597656 251.332031 C 827.066406 222.667969 799.082031 213.113281 774.171875 213.113281 C 755.0625 213.113281 721.617188 221.644531 721.617188 249.285156 C 721.617188 271.125 739.023438 282.046875 761.886719 287.164062 L 790.550781 293.648438 C 828.433594 301.839844 873.820312 316.171875 873.820312 365.996094 C 873.820312 414.457031 828.773438 440.050781 779.632812 440.050781 C 721.277344 440.050781 684.421875 408.3125 677.9375 358.832031 L 712.0625 358.832031 C 718.546875 392.957031 742.433594 410.703125 780.3125 410.703125 C 816.828125 410.703125 837.988281 393.296875 837.988281 369.070312 C 837.988281 343.132812 815.808594 332.210938 784.75 325.386719 L 754.039062 318.902344 C 720.253906 311.394531 686.128906 292.625 686.128906 251.332031 C 686.128906 204.238281 735.609375 183.761719 775.535156 183.761719 C 819.902344 183.761719 859.828125 203.558594 869.382812 251.332031"/>
+        <path fill="white" d="M 950.601562 205.945312 L 950.601562 252.015625 L 985.410156 252.015625 L 985.410156 276.929688 L 950.601562 276.929688 L 950.601562 385.789062 C 950.601562 404.898438 951.964844 409.679688 969.710938 409.679688 L 985.410156 409.679688 L 985.410156 435.613281 L 962.886719 435.613281 C 927.738281 435.613281 919.546875 427.765625 919.546875 389.542969 L 919.546875 276.929688 L 890.539062 276.929688 L 890.539062 252.015625 L 919.546875 252.015625 L 919.546875 205.945312 Z"/>
+        <path fill="white" d="M 1142.386719 327.433594 C 1141.707031 301.5 1122.253906 275.5625 1089.492188 275.5625 C 1061.851562 275.5625 1036.9375 290.578125 1034.207031 327.433594 Z M 1090.515625 412.75 C 1117.816406 412.75 1132.832031 400.464844 1140.679688 382.378906 L 1172.761719 382.378906 C 1164.226562 414.113281 1135.222656 440.050781 1090.515625 440.050781 C 1032.503906 440.050781 1000.421875 398.417969 1000.421875 344.15625 C 1000.421875 286.140625 1039.328125 248.945312 1089.492188 248.945312 C 1145.457031 248.945312 1179.246094 296.039062 1175.148438 354.054688 L 1033.867188 354.054688 C 1035.234375 393.640625 1063.214844 412.75 1090.515625 412.75"/>
+        <path fill="white" d="M 1204.496094 188.199219 L 1235.550781 188.199219 L 1235.550781 435.613281 L 1204.496094 435.613281 Z"/>
+        <path fill="white" d="M 1273.765625 188.199219 L 1304.820312 188.199219 L 1304.820312 435.613281 L 1273.765625 435.613281 Z"/>
+        <path fill="white" d="M 1367.949219 386.472656 C 1367.949219 403.878906 1381.257812 415.480469 1403.441406 415.480469 C 1432.449219 415.480469 1460.089844 402.171875 1460.089844 358.832031 L 1460.089844 347.230469 C 1403.78125 353.027344 1367.949219 361.21875 1367.949219 386.472656 M 1457.699219 322.65625 L 1457.699219 318.222656 C 1457.699219 284.777344 1438.929688 273.515625 1416.066406 273.515625 C 1390.472656 273.515625 1375.457031 287.507812 1374.089844 310.03125 L 1342.011719 310.03125 C 1345.085938 270.445312 1379.894531 248.261719 1415.726562 248.261719 C 1466.230469 248.261719 1489.097656 272.492188 1488.753906 324.023438 L 1488.414062 366.339844 C 1488.074219 397.050781 1489.78125 418.210938 1493.191406 435.613281 L 1461.796875 435.613281 C 1460.773438 428.789062 1459.746094 421.28125 1459.40625 410.359375 C 1448.144531 429.128906 1429.035156 440.050781 1396.613281 440.050781 C 1362.144531 440.050781 1333.480469 420.941406 1333.480469 387.15625 C 1333.480469 343.816406 1382.28125 331.1875 1457.699219 322.65625"/>
+        <path fill="white" d="M 1601.710938 283.070312 C 1573.042969 283.070312 1558.710938 299.109375 1558.710938 339.378906 L 1558.710938 435.613281 L 1527.65625 435.613281 L 1527.65625 252.015625 L 1558.027344 252.015625 L 1558.027344 284.09375 C 1567.242188 263.277344 1586.011719 251.675781 1609.898438 250.992188 C 1612.972656 250.992188 1615.699219 250.992188 1619.113281 251.332031 L 1619.113281 284.433594 C 1612.628906 283.753906 1606.828125 283.070312 1601.710938 283.070312"/>
+      </svg>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="tag">Updated Apr 9, 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- âââ Title âââ -->
+<div class="page-title">SolvBTC on Stellar Network</div>
+
+<!-- âââ 3 Headlines âââ -->
+<div class="hero-grid">
+  <div class="hero-cell">
+    <div class="hero-label">Solv % of Stellar TVL</div>
+    <div class="hero-num">11.64%</div>
+    <div class="hero-detail"><b>$19.9M</b> of $170.98M</div>
+  </div>
+  <div class="hero-cell">
+    <div class="hero-label">Solv Pairs % of Aquarius TVL</div>
+    <div class="hero-num">30.09%</div>
+    <div class="hero-detail"><b>$13.44M</b> of $44.66M</div>
+  </div>
+  <div class="hero-cell">
+    <div class="hero-label">SolvBTC Pairs Trading Volume Share on Aquarius</div>
+    <div class="hero-num">21.74%</div>
+    <div class="hero-detail"><b>485.31K</b> of 2,232.83K (6-day)</div>
+  </div>
+</div>
+
+<!-- âââ Stats âââ -->
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-label">SolvBTC Holdings</div><div class="stat-val">280.52</div></div>
+  <div class="stat-item"><div class="stat-label">USD Value</div><div class="stat-val">$19.92M</div></div>
+  <div class="stat-item"><div class="stat-label">Stellar TVL</div><div class="stat-val">$170.98M</div></div>
+  <div class="stat-item"><div class="stat-label">Aquarius DEX TVL</div><div class="stat-val">$44.66M</div></div>
+  <div class="stat-item"><div class="stat-label">Aquarius 6d Volume</div><div class="stat-val">2,232.83K</div></div>
+</div>
+
+<!-- âââ Trajectory â Sparklines âââ -->
+<div class="traj">
+  <div class="sec-head"><h2>Weekly Trajectory</h2><div class="line"></div></div>
+  <div class="spark-row">
+    <div class="spark-card">
+      <div class="spark-top">
+        <div class="spark-title">Solv % of Stellar TVL</div>
+        <div class="spark-val">11.64%</div>
+      </div>
+      <div class="spark-area">
+        <div class="spark-dot"></div><div class="spark-track"></div>
+        <div class="spark-ghosts"><div class="spark-ghost" style="height:18%"></div><div class="spark-ghost" style="height:30%"></div><div class="spark-ghost" style="height:22%"></div><div class="spark-ghost" style="height:36%"></div><div class="spark-ghost" style="height:26%"></div></div>
+        <div class="spark-badge">+5 weeks</div>
+      </div>
+    </div>
+    <div class="spark-card">
+      <div class="spark-top">
+        <div class="spark-title">Solv Pairs % Aquarius TVL</div>
+        <div class="spark-val">30.09%</div>
+      </div>
+      <div class="spark-area">
+        <div class="spark-dot"></div><div class="spark-track"></div>
+        <div class="spark-ghosts"><div class="spark-ghost" style="height:28%"></div><div class="spark-ghost" style="height:20%"></div><div class="spark-ghost" style="height:34%"></div><div class="spark-ghost" style="height:24%"></div><div class="spark-ghost" style="height:30%"></div></div>
+        <div class="spark-badge">+5 weeks</div>
+      </div>
+    </div>
+    <div class="spark-card">
+      <div class="spark-top">
+        <div class="spark-title">SolvBTC Pairs Trading Volume Share</div>
+        <div class="spark-val">21.74%</div>
+      </div>
+      <div class="spark-area">
+        <div class="spark-dot"></div><div class="spark-track"></div>
+        <div class="spark-ghosts"><div class="spark-ghost" style="height:22%"></div><div class="spark-ghost" style="height:32%"></div><div class="spark-ghost" style="height:16%"></div><div class="spark-ghost" style="height:28%"></div><div class="spark-ghost" style="height:24%"></div></div>
+        <div class="spark-badge">+5 weeks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="tl-wrap">
+    <div class="tl-cell now">
+      <div class="tl-date">Apr 9</div>
+      <div class="tl-nums"><div><span class="n">11.64%</span></div><div><span class="n">30.09%</span></div><div><span class="n">21.74%</span></div></div>
+    </div>
+    <div class="tl-cell later"><div class="tl-date">Apr 16</div><div class="tl-empty">â<br>â<br>â</div></div>
+    <div class="tl-cell later"><div class="tl-date">Apr 23</div><div class="tl-empty">â<br>â<br>â</div></div>
+    <div class="tl-cell later"><div class="tl-date">Apr 30</div><div class="tl-empty">â<br>â<br>â</div></div>
+    <div class="tl-cell later"><div class="tl-date">May 7</div><div class="tl-empty">â<br>â<br>â</div></div>
+    <div class="tl-cell later"><div class="tl-date">May 14</div><div class="tl-empty">â<br>â<br>â</div></div>
+  </div>
+  <div class="tl-legend">
+    <span>Solv % Stellar TVL</span>
+    <span>Solv % Aquarius TVL</span>
+    <span>SolvBTC Pairs Trading Volume Share</span>
+  </div>
+</div>
+
+<!-- âââ Charts âââ -->
+<div class="sec-head"><h2>Breakdown</h2><div class="line"></div></div>
+<div class="charts-row">
+  <div class="chart-card">
+    <h3>Aquarius 6-Day Trading Volume (K)</h3>
+    <div class="chart-wrap"><canvas id="volumeChart"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <h3>Aquarius TVL Distribution ($M)</h3>
+    <div class="chart-wrap"><canvas id="tvlChart"></canvas></div>
+  </div>
+</div>
+
+<!-- âââ Table âââ -->
+<div class="data-table">
+  <h3>Aquarius DEX â Solv Pair Details</h3>
+  <table>
+    <thead><tr><th>Pair</th><th>6-Day Volume (K)</th><th>TVL ($M)</th><th>Volume Share</th><th>TVL Share</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">Aquarius (Total)</td><td>2,232.83</td><td>44.66</td><td>100%</td><td>100%</td></tr>
+      <tr><td class="pn">SolvBTC / xSolvBTC</td><td>153.00</td><td>7.81</td><td>6.85%</td><td class="hl">17.49%</td></tr>
+      <tr><td class="pn">SolvBTC / XLM</td><td>332.31</td><td>5.63</td><td>14.88%</td><td>12.61%</td></tr>
+      <tr style="background:rgba(124,58,237,0.05);">
+        <td class="pn" style="color:var(--purple-2);">Combined Solv</td>
+        <td class="hl">485.31</td><td class="hl">13.44</td>
+        <td class="hl2">21.74%</td><td class="hl2">30.09%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- âââ Bottom âââ -->
+<div class="bottom-grid">
+  <div class="panel">
+    <h3>Asset Breakdown on Stellar</h3>
+    <div class="row">
+      <div style="flex:1">
+        <div class="row-label">SolvBTC</div>
+        <div class="bar-bg"><div class="bar-fg" style="width:81.7%;"></div></div>
+      </div>
+      <div class="row-val" style="margin-left:16px;">229.22</div>
+    </div>
+    <div class="row">
+      <div style="flex:1">
+        <div class="row-label">xSolvBTC</div>
+        <div class="bar-bg"><div class="bar-fg" style="width:18.3%;opacity:0.6;"></div></div>
+      </div>
+      <div class="row-val" style="margin-left:16px;opacity:0.7;">51.30</div>
+    </div>
+    <div class="row" style="border-top:1px solid var(--border);margin-top:4px;padding-top:16px;">
+      <div class="row-label" style="font-weight:700;">Total</div>
+      <div class="row-val" style="font-size:20px;">280.52 BTC</div>
+    </div>
+    <div class="row">
+      <div class="row-label" style="color:var(--muted);">USD Equivalent</div>
+      <div class="row-val" style="color:var(--text);">$19,916,920</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Solv Footprint on Stellar</h3>
+    <div class="gauge-center">
+      <canvas id="gauge" width="220" height="130"></canvas>
+      <div class="gauge-num">11.64%</div>
+      <div class="gauge-sub">of Stellar TVL</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Stellar Total TVL</div>
+      <div class="row-val">$170.98M</div>
+    </div>
+    <div class="row">
+      <div class="row-label">SolvBTC & xSolvBTC TVL</div>
+      <div class="row-val">$19.9M</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Aquarius Solv TVL Share</div>
+      <div class="row-val">30.09%</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">SolvBTC on Stellar Network â Updated weekly</div>
+
+<script>
+const P={
+  p1:'#9b7dd4',p2:'#c4b5fd',p3:'#7c5cbf',p4:'#e0d6ff',
+  dim:'rgba(255,255,255,0.10)',dimmer:'rgba(255,255,255,0.04)',
+  muted:'rgba(255,255,255,0.55)',border:'rgba(255,255,255,0.08)'
+};
+Chart.defaults.color='rgba(255,255,255,0.6)';
+Chart.defaults.borderColor='rgba(255,255,255,0.08)';
+Chart.defaults.font.family="'Inter',sans-serif";
+
+// Volume
+new Chart(document.getElementById('volumeChart'),{
+  type:'bar',
+  data:{
+    labels:['Aquarius Total','SolvBTC/XLM','SolvBTC/xSolvBTC','Other Pairs'],
+    datasets:[{
+      data:[2232.83,332.31,153,2232.83-332.31-153],
+      backgroundColor:[P.dim, P.p1, P.p2, P.dimmer],
+      borderColor:['rgba(255,255,255,0.15)', P.p1, P.p2, 'rgba(255,255,255,0.06)'],
+      borderWidth:1,borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y.toLocaleString()}K`}}},
+    scales:{
+      y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{callback:v=>v+'K'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// TVL Doughnut
+new Chart(document.getElementById('tvlChart'),{
+  type:'doughnut',
+  data:{
+    labels:['SolvBTC/xSolvBTC','SolvBTC/XLM','Other Pairs'],
+    datasets:[{
+      data:[7.81,5.63,44.66-7.81-5.63],
+      backgroundColor:[P.p1,P.p2,P.dimmer],
+      borderWidth:0,hoverOffset:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:'65%',
+    plugins:{
+      legend:{position:'bottom',labels:{padding:16,usePointStyle:true,pointStyle:'circle',color:P.muted}},
+      tooltip:{callbacks:{label:c=>`$${c.parsed.toFixed(2)}M`}}
+    }
+  }
+});
+
+// Gauge
+(function(){
+  const cv=document.getElementById('gauge'),ctx=cv.getContext('2d');
+  const cx=110,cy=115,r=85,start=Math.PI,end=2*Math.PI;
+  ctx.beginPath();ctx.arc(cx,cy,r,start,end);
+  ctx.lineWidth=16;ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,r,start,start+(end-start)*0.1164);
+  ctx.lineWidth=16;
+  const g=ctx.createLinearGradient(25,0,195,0);
+  g.addColorStop(0,'#6b4eaf');g.addColorStop(1,'#c4b5fd');
+  ctx.strokeStyle=g;ctx.lineCap='round';ctx.stroke();
+})();
+</script>
+</body>
+</html>
