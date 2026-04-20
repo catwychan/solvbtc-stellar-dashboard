@@ -36,7 +36,7 @@ body{
   min-height:100vh;
 }
 
-/* ââ Top Bar ââ */
+/* ── Top Bar ── */
 .topbar{
   display:flex;align-items:center;justify-content:space-between;
   padding:18px 40px;
@@ -58,17 +58,17 @@ body{
   letter-spacing:0.3px;
 }
 
-/* ââ Container ââ */
+/* ── Container ── */
 .container{max-width:1160px;margin:0 auto;padding:44px 40px 60px;}
 @media(max-width:768px){.container{padding:28px 16px;}}
 
-/* ââ Page Title ââ */
+/* ── Page Title ── */
 .page-title{
   font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:3px;
   color:var(--purple-2);margin-bottom:36px;
 }
 
-/* ââ Hero KPIs ââ */
+/* ── Hero KPIs ── */
 .hero-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:var(--border);
@@ -94,7 +94,7 @@ body{
 .hero-detail{font-size:13px;color:var(--muted);}
 .hero-detail b{color:var(--text2);font-weight:600;}
 
-/* ââ Stats Strip ââ */
+/* ── Stats Strip ── */
 .stats-strip{
   display:flex;gap:0;
   border-radius:12px;overflow:hidden;
@@ -112,7 +112,7 @@ body{
 .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:6px;}
 .stat-val{font-size:18px;font-weight:700;color:#ffffff;}
 
-/* ââ Section Headers ââ */
+/* ── Section Headers ── */
 .sec-head{
   display:flex;align-items:center;gap:12px;
   margin-bottom:20px;
@@ -120,11 +120,11 @@ body{
 .sec-head h2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--purple-2);white-space:nowrap;}
 .sec-head .line{flex:1;height:1px;background:var(--border);}
 
-/* ââ Trajectory ââ */
+/* ── Trajectory ── */
 .traj{margin-bottom:44px;}
 
 .spark-row{
-  display:grid;grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(2,1fr);
   gap:14px;margin-bottom:28px;
 }
 @media(max-width:820px){.spark-row{grid-template-columns:1fr;}}
@@ -135,28 +135,11 @@ body{
 .spark-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
 .spark-title{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
 .spark-val{font-size:20px;font-weight:700;color:#ffffff;}
-.spark-area{height:44px;position:relative;display:flex;align-items:center;}
-.spark-dot{
-  width:9px;height:9px;border-radius:50%;
-  position:absolute;left:0;
-  background:var(--purple-1);
-  box-shadow:0 0 12px var(--purple-glow);
-  animation:pulse 2.5s infinite;
-}
-@keyframes pulse{0%,100%{box-shadow:0 0 8px var(--purple-glow);}50%{box-shadow:0 0 22px var(--purple-glow);}}
-.spark-track{position:absolute;left:14px;right:0;top:50%;height:1px;border-top:1px dashed var(--muted2);}
-.spark-ghosts{
-  position:absolute;left:20px;right:0;top:0;bottom:0;
-  display:flex;align-items:flex-end;gap:3px;
-}
-.spark-ghost{flex:1;border-radius:2px 2px 0 0;background:rgba(124,58,237,0.06);}
-.spark-badge{
-  position:absolute;right:0;top:0;
-  font-size:9px;color:var(--muted);
-  background:var(--purple-dim);
-  padding:2px 7px;border-radius:3px;
-  border:1px dashed var(--muted2);
-}
+.spark-vals{text-align:right;}
+.spark-vals .spark-val{margin-bottom:0;}
+.spark-prev{font-size:11px;color:var(--muted);margin-top:2px;}
+.spark-prev span{color:var(--text2);font-weight:600;}
+.spark-chart{height:80px;position:relative;}
 
 /* Timeline */
 .tl-wrap{
@@ -182,9 +165,9 @@ body{
   display:flex;gap:18px;margin-top:10px;font-size:10px;
   text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);
 }
-.tl-legend span::before{content:'â ';color:var(--purple-2);}
+.tl-legend span::before{content:'● ';color:var(--purple-2);}
 
-/* ââ Charts ââ */
+/* ── Charts ── */
 .charts-row{
   display:grid;grid-template-columns:1fr 1fr;
   gap:18px;margin-bottom:40px;
@@ -200,7 +183,7 @@ body{
 }
 .chart-wrap{position:relative;height:230px;}
 
-/* ââ Table ââ */
+/* ── Table ── */
 .data-table{
   background:var(--card);border:1px solid var(--border);
   border-radius:12px;overflow:hidden;margin-bottom:40px;
@@ -222,7 +205,7 @@ tr:last-child td{border-bottom:none;}
 .hl{color:#ffffff;font-weight:600;}
 .hl2{color:var(--purple-2);font-weight:700;}
 
-/* ââ Bottom Grid ââ */
+/* ── Bottom Grid ── */
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:820px){.bottom-grid{grid-template-columns:1fr;}}
 .panel{
@@ -258,7 +241,7 @@ tr:last-child td{border-bottom:none;}
 </head>
 <body>
 
-<!-- âââ Top Bar âââ -->
+<!-- ═══ Top Bar ═══ -->
 <div class="topbar">
   <div class="topbar-left">
     <div class="solv-logo">
@@ -292,106 +275,113 @@ tr:last-child td{border-bottom:none;}
     </div>
   </div>
   <div class="topbar-right">
-    <div class="tag">Updated Apr 9, 2026</div>
+    <div class="tag">Updated Apr 16, 2026</div>
   </div>
 </div>
 
 <div class="container">
 
-<!-- âââ Title âââ -->
+<!-- ═══ Title ═══ -->
 <div class="page-title">SolvBTC on Stellar Network</div>
 
-<!-- âââ 3 Headlines âââ -->
+<!-- ═══ 3 Headlines ═══ -->
 <div class="hero-grid">
   <div class="hero-cell">
     <div class="hero-label">Solv % of Stellar TVL</div>
-    <div class="hero-num">11.64%</div>
-    <div class="hero-detail"><b>$19.9M</b> of $170.98M</div>
+    <div class="hero-num">12.88%</div>
+    <div class="hero-detail"><b>$24.1M</b> of $187.11M</div>
   </div>
   <div class="hero-cell">
     <div class="hero-label">Solv Pairs % of Aquarius TVL</div>
-    <div class="hero-num">30.09%</div>
-    <div class="hero-detail"><b>$13.44M</b> of $44.66M</div>
+    <div class="hero-num">36.41%</div>
+    <div class="hero-detail"><b>$16.90M</b> of $46.42M</div>
   </div>
   <div class="hero-cell">
     <div class="hero-label">SolvBTC Pairs Trading Volume Share on Aquarius</div>
-    <div class="hero-num">21.74%</div>
-    <div class="hero-detail"><b>485.31K</b> of 2,232.83K (6-day)</div>
+    <div class="hero-num">18.43%</div>
+    <div class="hero-detail"><b>554.44K</b> of 3,008K (7-day)</div>
   </div>
 </div>
 
-<!-- âââ Stats âââ -->
+<!-- ═══ Stats ═══ -->
 <div class="stats-strip">
-  <div class="stat-item"><div class="stat-label">SolvBTC Holdings</div><div class="stat-val">280.52</div></div>
-  <div class="stat-item"><div class="stat-label">USD Value</div><div class="stat-val">$19.92M</div></div>
-  <div class="stat-item"><div class="stat-label">Stellar TVL</div><div class="stat-val">$170.98M</div></div>
-  <div class="stat-item"><div class="stat-label">Aquarius DEX TVL</div><div class="stat-val">$44.66M</div></div>
-  <div class="stat-item"><div class="stat-label">Aquarius 6d Volume</div><div class="stat-val">2,232.83K</div></div>
+  <div class="stat-item"><div class="stat-label">Solv Assets</div><div class="stat-val">323.06</div></div>
+  <div class="stat-item"><div class="stat-label">USD Value</div><div class="stat-val">$24.13M</div></div>
+  <div class="stat-item"><div class="stat-label">Stellar TVL</div><div class="stat-val">$187.11M</div></div>
+  <div class="stat-item"><div class="stat-label">Aquarius DEX TVL</div><div class="stat-val">$46.42M</div></div>
+  <div class="stat-item"><div class="stat-label">Aquarius 7d Volume</div><div class="stat-val">3,008K</div></div>
 </div>
 
-<!-- âââ Trajectory â Sparklines âââ -->
+<!-- ═══ Trajectory — Sparklines ═══ -->
 <div class="traj">
   <div class="sec-head"><h2>Weekly Trajectory</h2><div class="line"></div></div>
   <div class="spark-row">
     <div class="spark-card">
       <div class="spark-top">
+        <div class="spark-title">Solv Assets (BTC)</div>
+        <div class="spark-vals">
+          <div class="spark-val">323.06</div>
+          <div class="spark-prev">Apr 9: <span>280.52</span></div>
+        </div>
+      </div>
+      <div class="spark-chart"><canvas id="trajChart1"></canvas></div>
+    </div>
+    <div class="spark-card">
+      <div class="spark-top">
         <div class="spark-title">Solv % of Stellar TVL</div>
-        <div class="spark-val">11.64%</div>
+        <div class="spark-vals">
+          <div class="spark-val">12.88%</div>
+          <div class="spark-prev">Apr 9: <span>11.64%</span></div>
+        </div>
       </div>
-      <div class="spark-area">
-        <div class="spark-dot"></div><div class="spark-track"></div>
-        <div class="spark-ghosts"><div class="spark-ghost" style="height:18%"></div><div class="spark-ghost" style="height:30%"></div><div class="spark-ghost" style="height:22%"></div><div class="spark-ghost" style="height:36%"></div><div class="spark-ghost" style="height:26%"></div></div>
-        <div class="spark-badge">+5 weeks</div>
-      </div>
+      <div class="spark-chart"><canvas id="trajChart2"></canvas></div>
     </div>
     <div class="spark-card">
       <div class="spark-top">
         <div class="spark-title">Solv Pairs % Aquarius TVL</div>
-        <div class="spark-val">30.09%</div>
+        <div class="spark-vals">
+          <div class="spark-val">36.41%</div>
+          <div class="spark-prev">Apr 9: <span>30.09%</span></div>
+        </div>
       </div>
-      <div class="spark-area">
-        <div class="spark-dot"></div><div class="spark-track"></div>
-        <div class="spark-ghosts"><div class="spark-ghost" style="height:28%"></div><div class="spark-ghost" style="height:20%"></div><div class="spark-ghost" style="height:34%"></div><div class="spark-ghost" style="height:24%"></div><div class="spark-ghost" style="height:30%"></div></div>
-        <div class="spark-badge">+5 weeks</div>
-      </div>
+      <div class="spark-chart"><canvas id="trajChart3"></canvas></div>
     </div>
     <div class="spark-card">
       <div class="spark-top">
         <div class="spark-title">SolvBTC Pairs Trading Volume Share</div>
-        <div class="spark-val">21.74%</div>
+        <div class="spark-vals">
+          <div class="spark-val">18.43%</div>
+          <div class="spark-prev">Apr 9: <span>21.74%</span></div>
+        </div>
       </div>
-      <div class="spark-area">
-        <div class="spark-dot"></div><div class="spark-track"></div>
-        <div class="spark-ghosts"><div class="spark-ghost" style="height:22%"></div><div class="spark-ghost" style="height:32%"></div><div class="spark-ghost" style="height:16%"></div><div class="spark-ghost" style="height:28%"></div><div class="spark-ghost" style="height:24%"></div></div>
-        <div class="spark-badge">+5 weeks</div>
-      </div>
+      <div class="spark-chart"><canvas id="trajChart4"></canvas></div>
     </div>
   </div>
 
-  <!-- Timeline -->
-  <div class="tl-wrap">
-    <div class="tl-cell now">
-      <div class="tl-date">Apr 9</div>
-      <div class="tl-nums"><div><span class="n">11.64%</span></div><div><span class="n">30.09%</span></div><div><span class="n">21.74%</span></div></div>
-    </div>
-    <div class="tl-cell later"><div class="tl-date">Apr 16</div><div class="tl-empty">â<br>â<br>â</div></div>
-    <div class="tl-cell later"><div class="tl-date">Apr 23</div><div class="tl-empty">â<br>â<br>â</div></div>
-    <div class="tl-cell later"><div class="tl-date">Apr 30</div><div class="tl-empty">â<br>â<br>â</div></div>
-    <div class="tl-cell later"><div class="tl-date">May 7</div><div class="tl-empty">â<br>â<br>â</div></div>
-    <div class="tl-cell later"><div class="tl-date">May 14</div><div class="tl-empty">â<br>â<br>â</div></div>
+</div>
+
+<!-- ═══ Distribution Pie Charts ═══ -->
+<div class="sec-head"><h2>Holder Distribution</h2><div class="line"></div></div>
+<div class="charts-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:40px;">
+  <div class="chart-card">
+    <h3>SolvBTC Holders on Stellar</h3>
+    <div class="chart-wrap"><canvas id="pieHolders1"></canvas></div>
   </div>
-  <div class="tl-legend">
-    <span>Solv % Stellar TVL</span>
-    <span>Solv % Aquarius TVL</span>
-    <span>SolvBTC Pairs Trading Volume Share</span>
+  <div class="chart-card">
+    <h3>xSolvBTC Holders on Stellar</h3>
+    <div class="chart-wrap"><canvas id="pieHolders2"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <h3>Solv Asset on Aquarius Breakdown</h3>
+    <div class="chart-wrap"><canvas id="pieHolders3"></canvas></div>
   </div>
 </div>
 
-<!-- âââ Charts âââ -->
+<!-- ═══ Charts ═══ -->
 <div class="sec-head"><h2>Breakdown</h2><div class="line"></div></div>
 <div class="charts-row">
   <div class="chart-card">
-    <h3>Aquarius 6-Day Trading Volume (K)</h3>
+    <h3>Aquarius 7-Day Trading Volume (K)</h3>
     <div class="chart-wrap"><canvas id="volumeChart"></canvas></div>
   </div>
   <div class="chart-card">
@@ -400,49 +390,49 @@ tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
-<!-- âââ Table âââ -->
+<!-- ═══ Table ═══ -->
 <div class="data-table">
-  <h3>Aquarius DEX â Solv Pair Details</h3>
+  <h3>Aquarius DEX — Solv Pair Details</h3>
   <table>
-    <thead><tr><th>Pair</th><th>6-Day Volume (K)</th><th>TVL ($M)</th><th>Volume Share</th><th>TVL Share</th></tr></thead>
+    <thead><tr><th>Pair</th><th>7-Day Volume (K)</th><th>TVL ($M)</th><th>Volume Share</th><th>TVL Share</th></tr></thead>
     <tbody>
-      <tr><td class="pn">Aquarius (Total)</td><td>2,232.83</td><td>44.66</td><td>100%</td><td>100%</td></tr>
-      <tr><td class="pn">SolvBTC / xSolvBTC</td><td>153.00</td><td>7.81</td><td>6.85%</td><td class="hl">17.49%</td></tr>
-      <tr><td class="pn">SolvBTC / XLM</td><td>332.31</td><td>5.63</td><td>14.88%</td><td>12.61%</td></tr>
+      <tr><td class="pn">Aquarius (Total)</td><td>3,008</td><td>46.42</td><td>100%</td><td>100%</td></tr>
+      <tr><td class="pn">SolvBTC / xSolvBTC</td><td>237.11</td><td>11.01</td><td>7.88%</td><td class="hl">23.72%</td></tr>
+      <tr><td class="pn">SolvBTC / XLM</td><td>317.33</td><td>5.89</td><td>10.55%</td><td>12.69%</td></tr>
       <tr style="background:rgba(124,58,237,0.05);">
         <td class="pn" style="color:var(--purple-2);">Combined Solv</td>
-        <td class="hl">485.31</td><td class="hl">13.44</td>
-        <td class="hl2">21.74%</td><td class="hl2">30.09%</td>
+        <td class="hl">554.44</td><td class="hl">16.90</td>
+        <td class="hl2">18.43%</td><td class="hl2">36.41%</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- âââ Bottom âââ -->
+<!-- ═══ Bottom ═══ -->
 <div class="bottom-grid">
   <div class="panel">
     <h3>Asset Breakdown on Stellar</h3>
     <div class="row">
       <div style="flex:1">
         <div class="row-label">SolvBTC</div>
-        <div class="bar-bg"><div class="bar-fg" style="width:81.7%;"></div></div>
+        <div class="bar-bg"><div class="bar-fg" style="width:77.9%;"></div></div>
       </div>
-      <div class="row-val" style="margin-left:16px;">229.22</div>
+      <div class="row-val" style="margin-left:16px;">251.66</div>
     </div>
     <div class="row">
       <div style="flex:1">
         <div class="row-label">xSolvBTC</div>
-        <div class="bar-bg"><div class="bar-fg" style="width:18.3%;opacity:0.6;"></div></div>
+        <div class="bar-bg"><div class="bar-fg" style="width:22.1%;opacity:0.6;"></div></div>
       </div>
-      <div class="row-val" style="margin-left:16px;opacity:0.7;">51.30</div>
+      <div class="row-val" style="margin-left:16px;opacity:0.7;">71.40</div>
     </div>
     <div class="row" style="border-top:1px solid var(--border);margin-top:4px;padding-top:16px;">
       <div class="row-label" style="font-weight:700;">Total</div>
-      <div class="row-val" style="font-size:20px;">280.52 BTC</div>
+      <div class="row-val" style="font-size:20px;">323.06 BTC</div>
     </div>
     <div class="row">
       <div class="row-label" style="color:var(--muted);">USD Equivalent</div>
-      <div class="row-val" style="color:var(--text);">$19,916,920</div>
+      <div class="row-val" style="color:var(--text);">$24,132,582</div>
     </div>
   </div>
 
@@ -450,27 +440,27 @@ tr:last-child td{border-bottom:none;}
     <h3>Solv Footprint on Stellar</h3>
     <div class="gauge-center">
       <canvas id="gauge" width="220" height="130"></canvas>
-      <div class="gauge-num">11.64%</div>
+      <div class="gauge-num">12.88%</div>
       <div class="gauge-sub">of Stellar TVL</div>
     </div>
     <div class="row">
       <div class="row-label">Stellar Total TVL</div>
-      <div class="row-val">$170.98M</div>
+      <div class="row-val">$187.11M</div>
     </div>
     <div class="row">
       <div class="row-label">SolvBTC & xSolvBTC TVL</div>
-      <div class="row-val">$19.9M</div>
+      <div class="row-val">$24.1M</div>
     </div>
     <div class="row">
       <div class="row-label">Aquarius Solv TVL Share</div>
-      <div class="row-val">30.09%</div>
+      <div class="row-val">36.41%</div>
     </div>
   </div>
 </div>
 
 </div>
 
-<div class="footer">SolvBTC on Stellar Network â Updated weekly</div>
+<div class="footer">SolvBTC on Stellar Network — Updated weekly</div>
 
 <script>
 const P={
@@ -488,7 +478,7 @@ new Chart(document.getElementById('volumeChart'),{
   data:{
     labels:['Aquarius Total','SolvBTC/XLM','SolvBTC/xSolvBTC','Other Pairs'],
     datasets:[{
-      data:[2232.83,332.31,153,2232.83-332.31-153],
+      data:[3008,317.33,237.11,3008-317.33-237.11],
       backgroundColor:[P.dim, P.p1, P.p2, P.dimmer],
       borderColor:['rgba(255,255,255,0.15)', P.p1, P.p2, 'rgba(255,255,255,0.06)'],
       borderWidth:1,borderRadius:4
@@ -510,7 +500,7 @@ new Chart(document.getElementById('tvlChart'),{
   data:{
     labels:['SolvBTC/xSolvBTC','SolvBTC/XLM','Other Pairs'],
     datasets:[{
-      data:[7.81,5.63,44.66-7.81-5.63],
+      data:[11.01,5.89,46.42-11.01-5.89],
       backgroundColor:[P.p1,P.p2,P.dimmer],
       borderWidth:0,hoverOffset:6
     }]
@@ -530,12 +520,114 @@ new Chart(document.getElementById('tvlChart'),{
   const cx=110,cy=115,r=85,start=Math.PI,end=2*Math.PI;
   ctx.beginPath();ctx.arc(cx,cy,r,start,end);
   ctx.lineWidth=16;ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineCap='round';ctx.stroke();
-  ctx.beginPath();ctx.arc(cx,cy,r,start,start+(end-start)*0.1164);
+  ctx.beginPath();ctx.arc(cx,cy,r,start,start+(end-start)*0.1288);
   ctx.lineWidth=16;
   const g=ctx.createLinearGradient(25,0,195,0);
   g.addColorStop(0,'#6b4eaf');g.addColorStop(1,'#c4b5fd');
   ctx.strokeStyle=g;ctx.lineCap='round';ctx.stroke();
 })();
+
+// Holder Distribution Pie Charts
+const pieColors = [P.p2, P.p1, P.p3, P.p4, P.dim];
+const pieOpts = (suffix) => ({
+  responsive:true, maintainAspectRatio:false, cutout:'0%',
+  plugins:{
+    legend:{position:'bottom',labels:{padding:12,usePointStyle:true,pointStyle:'circle',color:P.muted,font:{size:11}}},
+    tooltip:{callbacks:{label:c=>{
+      const total = c.dataset.data.reduce((a,b)=>a+b,0);
+      const pct = ((c.parsed/total)*100).toFixed(1);
+      return `${c.label}: ${pct}%`;
+    }}}
+  }
+});
+
+// SolvBTC Holders on Stellar (total 171)
+new Chart(document.getElementById('pieHolders1'),{
+  type:'pie',
+  data:{
+    labels:['0-1 BTC','1-10 BTC','10-20 BTC','20-100 BTC','>100 BTC'],
+    datasets:[{
+      data:[166,1,1,2,1],
+      backgroundColor:pieColors,
+      borderWidth:0,hoverOffset:6
+    }]
+  },
+  options:pieOpts()
+});
+
+// xSolvBTC Holders on Stellar (total 114)
+new Chart(document.getElementById('pieHolders2'),{
+  type:'pie',
+  data:{
+    labels:['0-1 BTC','1-10 BTC','10-20 BTC','20-100 BTC','>100 BTC'],
+    datasets:[{
+      data:[111,2,0,1,0],
+      backgroundColor:pieColors,
+      borderWidth:0,hoverOffset:6
+    }]
+  },
+  options:pieOpts()
+});
+
+// Solv Asset on Aquarius Breakdown (total 95)
+new Chart(document.getElementById('pieHolders3'),{
+  type:'pie',
+  data:{
+    labels:['0-1 BTC','1-10 BTC','10-20 BTC','20-50 BTC','50+ BTC'],
+    datasets:[{
+      data:[83,4,5,3,0],
+      backgroundColor:pieColors,
+      borderWidth:0,hoverOffset:6
+    }]
+  },
+  options:pieOpts()
+});
+
+// Trajectory line charts
+const trajLabels = ['Apr 9','Apr 16','Apr 23','Apr 30','May 7','May 14'];
+const trajConfigs = [
+  {id:'trajChart1', data:[280.52,323.06], suffix:' BTC', color:P.p4},
+  {id:'trajChart2', data:[11.64,12.88], suffix:'%', color:P.p2},
+  {id:'trajChart3', data:[30.09,36.41], suffix:'%', color:P.p1},
+  {id:'trajChart4', data:[21.74,18.43], suffix:'%', color:P.p3},
+];
+trajConfigs.forEach(cfg=>{
+  const fullData = cfg.data.concat(Array(6-cfg.data.length).fill(null));
+  new Chart(document.getElementById(cfg.id),{
+    type:'line',
+    data:{
+      labels:trajLabels,
+      datasets:[{
+        data:fullData,
+        borderColor:cfg.color,
+        backgroundColor:cfg.color+'33',
+        borderWidth:2.5,
+        pointBackgroundColor:cfg.color,
+        pointBorderColor:cfg.color,
+        pointRadius: fullData.map(v=>v!==null?5:0),
+        pointHoverRadius:7,
+        fill:true,
+        tension:0.3,
+        spanGaps:false
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:c=>c.parsed.y+cfg.suffix}}
+      },
+      scales:{
+        x:{display:true,grid:{display:false},ticks:{font:{size:9},color:'rgba(255,255,255,0.3)',maxRotation:0}},
+        y:{display:false,
+          min: cfg.suffix==='%' ? Math.max(0,Math.min(...cfg.data)*0.7) : Math.min(...cfg.data)*0.85,
+          max: Math.max(...cfg.data)*1.15
+        }
+      },
+      layout:{padding:{top:4,bottom:0,left:0,right:0}}
+    }
+  });
+});
 </script>
 </body>
 </html>
