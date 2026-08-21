@@ -237,6 +237,23 @@ tr:last-child td{border-bottom:none;}
   margin-top:48px;
   letter-spacing:0.3px;
 }
+
+/* ── Footnotes ── */
+.fn{
+  font-size:0.62em;vertical-align:super;line-height:0;
+  color:var(--purple-2);font-weight:700;margin-left:2px;
+}
+.notes{
+  max-width:1160px;margin:36px auto 0;padding:18px 40px 0;
+  border-top:1px solid var(--border);
+}
+@media(max-width:768px){.notes{padding:18px 16px 0;}}
+.notes p{
+  font-size:11px;line-height:1.7;color:var(--muted);
+  letter-spacing:0.2px;margin-bottom:6px;
+}
+.notes p:last-child{margin-bottom:0;}
+.notes .fn{margin-left:0;margin-right:5px;}
 </style>
 </head>
 <body>
@@ -275,7 +292,7 @@ tr:last-child td{border-bottom:none;}
     </div>
   </div>
   <div class="topbar-right">
-    <div class="tag">Updated May 28, 2026</div>
+    <div class="tag">Updated Aug 20, 2026</div>
   </div>
 </div>
 
@@ -287,41 +304,43 @@ tr:last-child td{border-bottom:none;}
 <!-- ═══ 3 Headlines ═══ -->
 <div class="hero-grid">
   <div class="hero-cell">
-    <div class="hero-label">Solv % of Stellar TVL</div>
-    <div class="hero-num">13.62%</div>
-    <div class="hero-detail"><b>$25.5M</b> of $186.95M</div>
+    <div class="hero-label">Solv % of Stellar TVL<span class="fn">†</span></div>
+    <div class="hero-num">10.67%</div>
+    <div class="hero-detail"><b>$25.1M</b> of $235.68M</div>
   </div>
   <div class="hero-cell">
     <div class="hero-label">Solv Pairs % of Aquarius TVL</div>
-    <div class="hero-num">36.83%</div>
-    <div class="hero-detail"><b>$18.27M</b> of $49.6M</div>
+    <div class="hero-num">39.80%</div>
+    <div class="hero-detail"><b>$18.84M</b> of $47.34M</div>
   </div>
   <div class="hero-cell">
     <div class="hero-label">SolvBTC Pairs Trading Volume Share on Aquarius</div>
-    <div class="hero-num">12.79%</div>
-    <div class="hero-detail"><b>786.2K</b> of 6,146K (7-day)</div>
+    <div class="hero-num">14.57%</div>
+    <div class="hero-detail"><b>702.2K</b> of 4,819K (7-day)</div>
   </div>
 </div>
 
 <!-- ═══ Stats ═══ -->
 <div class="stats-strip">
-  <div class="stat-item"><div class="stat-label">Solv Assets</div><div class="stat-val">346.90</div></div>
-  <div class="stat-item"><div class="stat-label">USD Value</div><div class="stat-val">$25.46M</div></div>
-  <div class="stat-item"><div class="stat-label">Stellar TVL</div><div class="stat-val">$186.95M</div></div>
-  <div class="stat-item"><div class="stat-label">Aquarius DEX TVL</div><div class="stat-val">$49.60M</div></div>
-  <div class="stat-item"><div class="stat-label">Aquarius 7d Volume</div><div class="stat-val">6,146K</div></div>
+  <div class="stat-item"><div class="stat-label">Solv Assets<span class="fn">†</span></div><div class="stat-val">349.26</div></div>
+  <div class="stat-item"><div class="stat-label">USD Value<span class="fn">†</span></div><div class="stat-val">$25.15M</div></div>
+  <div class="stat-item"><div class="stat-label">Stellar TVL</div><div class="stat-val">$235.68M</div></div>
+  <div class="stat-item"><div class="stat-label">Aquarius DEX TVL</div><div class="stat-val">$47.34M</div></div>
+  <div class="stat-item"><div class="stat-label">Aquarius 7d Volume</div><div class="stat-val">4,819K</div></div>
 </div>
 
 <!-- ═══ Trajectory — Sparklines ═══ -->
 <div class="traj">
-  <div class="sec-head"><h2>Weekly Trajectory</h2><div class="line"></div></div>
+  <div class="sec-head"><h2>Weekly Trajectory</h2><div class="line"></div>
+    <span style="font-size:10px;color:var(--muted2);letter-spacing:0.5px;white-space:nowrap;">No data collected May 28 – Aug 20</span>
+  </div>
   <div class="spark-row">
     <div class="spark-card">
       <div class="spark-top">
         <div class="spark-title">Solv Assets (BTC)</div>
         <div class="spark-vals">
-          <div class="spark-val">346.90</div>
-          <div class="spark-prev">May 14: <span>346.62</span></div>
+          <div class="spark-val">349.26</div>
+          <div class="spark-prev">May 28: <span>346.90</span></div>
         </div>
       </div>
       <div class="spark-chart"><canvas id="trajChart1"></canvas></div>
@@ -330,8 +349,8 @@ tr:last-child td{border-bottom:none;}
       <div class="spark-top">
         <div class="spark-title">Solv % of Stellar TVL</div>
         <div class="spark-vals">
-          <div class="spark-val">13.62%</div>
-          <div class="spark-prev">May 14: <span>14.18%</span></div>
+          <div class="spark-val">10.67%</div>
+          <div class="spark-prev">May 28: <span>13.62%</span></div>
         </div>
       </div>
       <div class="spark-chart"><canvas id="trajChart2"></canvas></div>
@@ -340,8 +359,8 @@ tr:last-child td{border-bottom:none;}
       <div class="spark-top">
         <div class="spark-title">Solv Pairs % Aquarius TVL</div>
         <div class="spark-vals">
-          <div class="spark-val">36.83%</div>
-          <div class="spark-prev">May 14: <span>38.83%</span></div>
+          <div class="spark-val">39.80%</div>
+          <div class="spark-prev">May 28: <span>36.83%</span></div>
         </div>
       </div>
       <div class="spark-chart"><canvas id="trajChart3"></canvas></div>
@@ -350,8 +369,8 @@ tr:last-child td{border-bottom:none;}
       <div class="spark-top">
         <div class="spark-title">SolvBTC Pairs Trading Volume Share</div>
         <div class="spark-vals">
-          <div class="spark-val">12.79%</div>
-          <div class="spark-prev">May 14: <span>7.58%</span></div>
+          <div class="spark-val">14.57%</div>
+          <div class="spark-prev">May 28: <span>12.79%</span></div>
         </div>
       </div>
       <div class="spark-chart"><canvas id="trajChart4"></canvas></div>
@@ -396,13 +415,13 @@ tr:last-child td{border-bottom:none;}
   <table>
     <thead><tr><th>Pair</th><th>7-Day Volume (K)</th><th>TVL ($M)</th><th>Volume Share</th><th>TVL Share</th></tr></thead>
     <tbody>
-      <tr><td class="pn">Aquarius (Total)</td><td>6,146</td><td>49.60</td><td>100%</td><td>100%</td></tr>
-      <tr><td class="pn">SolvBTC / xSolvBTC</td><td>222.3</td><td>12.25</td><td>3.62%</td><td class="hl">24.70%</td></tr>
-      <tr><td class="pn">SolvBTC / XLM</td><td>563.9</td><td>6.02</td><td>9.17%</td><td>12.14%</td></tr>
+      <tr><td class="pn">Aquarius (Total)</td><td>4,819</td><td>47.34</td><td>100%</td><td>100%</td></tr>
+      <tr><td class="pn">SolvBTC / xSolvBTC</td><td>149.0</td><td>11.78</td><td>3.09%</td><td class="hl">24.88%</td></tr>
+      <tr><td class="pn">SolvBTC / XLM</td><td>553.2</td><td>7.06</td><td>11.48%</td><td>14.91%</td></tr>
       <tr style="background:rgba(124,58,237,0.05);">
         <td class="pn" style="color:var(--purple-2);">Combined Solv</td>
-        <td class="hl">786.2</td><td class="hl">18.27</td>
-        <td class="hl2">12.79%</td><td class="hl2">36.83%</td>
+        <td class="hl">702.2</td><td class="hl">18.84</td>
+        <td class="hl2">14.57%</td><td class="hl2">39.80%</td>
       </tr>
     </tbody>
   </table>
@@ -411,28 +430,28 @@ tr:last-child td{border-bottom:none;}
 <!-- ═══ Bottom ═══ -->
 <div class="bottom-grid">
   <div class="panel">
-    <h3>Asset Breakdown on Stellar</h3>
+    <h3>Asset Breakdown on Stellar<span class="fn">†</span></h3>
     <div class="row">
       <div style="flex:1">
         <div class="row-label">SolvBTC</div>
-        <div class="bar-bg"><div class="bar-fg" style="width:76.4%;"></div></div>
+        <div class="bar-bg"><div class="bar-fg" style="width:76.7%;"></div></div>
       </div>
-      <div class="row-val" style="margin-left:16px;">265.14</div>
+      <div class="row-val" style="margin-left:16px;">267.79</div>
     </div>
     <div class="row">
       <div style="flex:1">
         <div class="row-label">xSolvBTC</div>
-        <div class="bar-bg"><div class="bar-fg" style="width:23.6%;opacity:0.6;"></div></div>
+        <div class="bar-bg"><div class="bar-fg" style="width:23.3%;opacity:0.6;"></div></div>
       </div>
-      <div class="row-val" style="margin-left:16px;opacity:0.7;">81.76</div>
+      <div class="row-val" style="margin-left:16px;opacity:0.7;">81.47</div>
     </div>
     <div class="row" style="border-top:1px solid var(--border);margin-top:4px;padding-top:16px;">
       <div class="row-label" style="font-weight:700;">Total</div>
-      <div class="row-val" style="font-size:20px;">346.90 BTC</div>
+      <div class="row-val" style="font-size:20px;">349.26 BTC</div>
     </div>
     <div class="row">
       <div class="row-label" style="color:var(--muted);">USD Equivalent</div>
-      <div class="row-val" style="color:var(--text);">$25,462,460</div>
+      <div class="row-val" style="color:var(--text);">$25,146,720</div>
     </div>
   </div>
 
@@ -440,24 +459,28 @@ tr:last-child td{border-bottom:none;}
     <h3>Solv Footprint on Stellar</h3>
     <div class="gauge-center">
       <canvas id="gauge" width="220" height="130"></canvas>
-      <div class="gauge-num">13.62%</div>
+      <div class="gauge-num">10.67%</div>
       <div class="gauge-sub">of Stellar TVL</div>
     </div>
     <div class="row">
       <div class="row-label">Stellar Total TVL</div>
-      <div class="row-val">$186.95M</div>
+      <div class="row-val">$235.68M</div>
     </div>
     <div class="row">
-      <div class="row-label">SolvBTC & xSolvBTC TVL</div>
-      <div class="row-val">$25.5M</div>
+      <div class="row-label">SolvBTC & xSolvBTC TVL<span class="fn">†</span></div>
+      <div class="row-val">$25.1M</div>
     </div>
     <div class="row">
       <div class="row-label">Aquarius Solv TVL Share</div>
-      <div class="row-val">36.83%</div>
+      <div class="row-val">39.80%</div>
     </div>
   </div>
 </div>
 
+</div>
+
+<div class="notes">
+  <p><span class="fn">†</span><b style="color:var(--text2);font-weight:600;">SolvBTC &amp; xSolvBTC TVL</b> reflects the total supply of SolvBTC and xSolvBTC issued on Stellar — including assets held in self-custodied wallets and anywhere outside of DeFi protocols.</p>
 </div>
 
 <div class="footer">SolvBTC on Stellar Network — Updated weekly</div>
@@ -478,7 +501,7 @@ new Chart(document.getElementById('volumeChart'),{
   data:{
     labels:['Aquarius Total','SolvBTC/XLM','SolvBTC/xSolvBTC','Other Pairs'],
     datasets:[{
-      data:[6146.37,563.91,222.32,6146.37-563.91-222.32],
+      data:[4818.99,553.24,148.95,4818.99-553.24-148.95],
       backgroundColor:[P.dim, P.p1, P.p2, P.dimmer],
       borderColor:['rgba(255,255,255,0.15)', P.p1, P.p2, 'rgba(255,255,255,0.06)'],
       borderWidth:1,borderRadius:4
@@ -500,7 +523,7 @@ new Chart(document.getElementById('tvlChart'),{
   data:{
     labels:['SolvBTC/xSolvBTC','SolvBTC/XLM','Other Pairs'],
     datasets:[{
-      data:[12.25,6.02,49.60-12.25-6.02],
+      data:[11.78,7.06,47.34-11.78-7.06],
       backgroundColor:[P.p1,P.p2,P.dimmer],
       borderWidth:0,hoverOffset:6
     }]
@@ -520,7 +543,7 @@ new Chart(document.getElementById('tvlChart'),{
   const cx=110,cy=115,r=85,start=Math.PI,end=2*Math.PI;
   ctx.beginPath();ctx.arc(cx,cy,r,start,end);
   ctx.lineWidth=16;ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineCap='round';ctx.stroke();
-  ctx.beginPath();ctx.arc(cx,cy,r,start,start+(end-start)*0.1362);
+  ctx.beginPath();ctx.arc(cx,cy,r,start,start+(end-start)*0.1067);
   ctx.lineWidth=16;
   const g=ctx.createLinearGradient(25,0,195,0);
   g.addColorStop(0,'#6b4eaf');g.addColorStop(1,'#c4b5fd');
@@ -541,13 +564,13 @@ const pieOpts = (suffix) => ({
   }
 });
 
-// SolvBTC Holders on Stellar (total 199)
+// SolvBTC Holders on Stellar (total 215)
 new Chart(document.getElementById('pieHolders1'),{
   type:'pie',
   data:{
     labels:['0–100','100–1K','1K–10K','10K–100K','100K–500K','>500K'],
     datasets:[{
-      data:[152,27,4,10,1,5],
+      data:[137,33,14,6,13,12],
       backgroundColor:pieColors,
       borderWidth:0,hoverOffset:6
     }]
@@ -555,13 +578,13 @@ new Chart(document.getElementById('pieHolders1'),{
   options:pieOpts()
 });
 
-// xSolvBTC Holders on Stellar (total 161)
+// xSolvBTC Holders on Stellar (total 167)
 new Chart(document.getElementById('pieHolders2'),{
   type:'pie',
   data:{
     labels:['0–100','100–1K','1K–10K','10K–100K','100K–500K','>500K'],
     datasets:[{
-      data:[132,19,1,6,2,1],
+      data:[128,18,1,5,9,6],
       backgroundColor:pieColors,
       borderWidth:0,hoverOffset:6
     }]
@@ -569,13 +592,13 @@ new Chart(document.getElementById('pieHolders2'),{
   options:pieOpts()
 });
 
-// Solv Asset on Aquarius Breakdown (total 132)
+// Solv Asset on Aquarius Breakdown (total 139)
 new Chart(document.getElementById('pieHolders3'),{
   type:'pie',
   data:{
     labels:['0-1 BTC','1-10 BTC','10-20 BTC','20-50 BTC','50+ BTC'],
     datasets:[{
-      data:[119,5,4,4,0],
+      data:[123,8,4,3,1],
       backgroundColor:pieColors,
       borderWidth:0,hoverOffset:6
     }]
@@ -584,12 +607,12 @@ new Chart(document.getElementById('pieHolders3'),{
 });
 
 // Trajectory line charts
-const trajLabels = ['Apr 9','Apr 16','Apr 23','Apr 30','May 7','May 14','May 21','May 28'];
+const trajLabels = ['Apr 9','Apr 16','Apr 23','Apr 30','May 7','May 14','May 21','May 28','Aug 20'];
 const trajConfigs = [
-  {id:'trajChart1', data:[280.52,323.06,348.69,347.44,346.21,346.62,346.90,346.90], suffix:' BTC', color:P.p4},
-  {id:'trajChart2', data:[11.64,12.88,13.15,13.82,14.38,14.18,13.62,13.62], suffix:'%', color:P.p2},
-  {id:'trajChart3', data:[30.09,36.41,37.58,37.34,38.47,38.83,36.83,36.83], suffix:'%', color:P.p1},
-  {id:'trajChart4', data:[21.74,18.43,8.55,8.66,6.32,7.58,12.79,12.79], suffix:'%', color:P.p3},
+  {id:'trajChart1', data:[280.52,323.06,348.69,347.44,346.21,346.62,346.90,346.90,349.26], suffix:' BTC', color:P.p4},
+  {id:'trajChart2', data:[11.64,12.88,13.15,13.82,14.38,14.18,13.62,13.62,10.67], suffix:'%', color:P.p2},
+  {id:'trajChart3', data:[30.09,36.41,37.58,37.34,38.47,38.83,36.83,36.83,39.80], suffix:'%', color:P.p1},
+  {id:'trajChart4', data:[21.74,18.43,8.55,8.66,6.32,7.58,12.79,12.79,14.57], suffix:'%', color:P.p3},
 ];
 trajConfigs.forEach(cfg=>{
   const fullData = cfg.data;
