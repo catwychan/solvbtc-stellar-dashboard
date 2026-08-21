@@ -489,6 +489,7 @@ tr:last-child td{border-bottom:none;}
 const P={
   p1:'#9b7dd4',p2:'#c4b5fd',p3:'#7c5cbf',p4:'#e0d6ff',
   dim:'rgba(255,255,255,0.10)',dimmer:'rgba(255,255,255,0.04)',
+  ctx:'#413567',ctxEdge:'#54457f',
   muted:'rgba(255,255,255,0.55)',border:'rgba(255,255,255,0.08)'
 };
 Chart.defaults.color='rgba(255,255,255,0.6)';
@@ -499,11 +500,11 @@ Chart.defaults.font.family="'Inter',sans-serif";
 new Chart(document.getElementById('volumeChart'),{
   type:'bar',
   data:{
-    labels:['Aquarius Total','SolvBTC/XLM','SolvBTC/xSolvBTC','Other Pairs'],
+    labels:['SolvBTC/XLM','SolvBTC/xSolvBTC','Other Pairs'],
     datasets:[{
-      data:[4818.99,553.24,148.95,4818.99-553.24-148.95],
-      backgroundColor:[P.dim, P.p1, P.p2, P.dimmer],
-      borderColor:['rgba(255,255,255,0.15)', P.p1, P.p2, 'rgba(255,255,255,0.06)'],
+      data:[553.24,148.95,4818.99-553.24-148.95],
+      backgroundColor:[P.p1, P.p2, P.ctx],
+      borderColor:[P.p1, P.p2, P.ctxEdge],
       borderWidth:1,borderRadius:4
     }]
   },
@@ -524,7 +525,7 @@ new Chart(document.getElementById('tvlChart'),{
     labels:['SolvBTC/xSolvBTC','SolvBTC/XLM','Other Pairs'],
     datasets:[{
       data:[11.78,7.06,47.34-11.78-7.06],
-      backgroundColor:[P.p1,P.p2,P.dimmer],
+      backgroundColor:[P.p1,P.p2,P.ctx],
       borderWidth:0,hoverOffset:6
     }]
   },
@@ -551,7 +552,7 @@ new Chart(document.getElementById('tvlChart'),{
 })();
 
 // Holder Distribution Pie Charts
-const pieColors = [P.p2, P.p1, P.p3, P.p4, P.dim, 'rgba(255,255,255,0.25)'];
+const pieColors = ['#e0d6ff', '#c4b5fd', '#9b7dd4', '#7c5cbf', '#5b4a85', '#413567'];
 const pieOpts = (suffix) => ({
   responsive:true, maintainAspectRatio:false, cutout:'0%',
   plugins:{
